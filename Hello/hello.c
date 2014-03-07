@@ -4,6 +4,8 @@
 
 // this is a simple comment
 
+// mandr: my comment is better!
+
 main()
 {
 	int i=1;
