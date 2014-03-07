@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
+// this is a simple comment
+
 main()
 {
 	int i=1;
