@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project name="Post-build renaming" default="build" basedir=".">
+
+<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+  <target name="build">
+     <propertyregex property="major" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\1" casesensitive="false" />
+     <propertyregex property="minor" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\2" casesensitive="false" />
+     <propertyregex property="rev" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\3" casesensitive="false" />
+     <propertyregex property="build" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\4" casesensitive="false" />
+
+     <!--
+        <exec dir="." executable="cmd" >
+            <arg line="/c copy_to_safe.bat C:\Builds\TestProj(${type})-${major}.${minor}.${rev}.${build}"/>  
+        </exec>
+     -->
+
+     <zip basedir="." destfile="${artifactsDir}/${major}.${minor}.${rev}.${build}.zip"/>
+
+  </target>
+
+</project>

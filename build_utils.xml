@@ -1,0 +1,86 @@
+<project name="buildUtils" basedir=".">
+
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+<!-- 
+     Default user property values.  These are likely to be overridden.
+-->
+  <property name="trunk_path" value="${basedir}"/>
+  <property name="buildenv" value="Visual Studio 2008"/>
+  <property name="builder" value=""/> <!-- This can be used to dump all environment 
+                                           and binary files to a specific folder (see ${stage_path}) 
+                                        -->
+  <!--
+  	<property name="staging_path" value="${trunk_path}/stage/${ant.project.name}/${builder}"/>
+  -->
+
+  <property name="staging_path" value="${basedir}"/>    <!-- for testing only --> 
+  <property name="build_type" value="RelWithDebInfo"/>  <!-- release type: Debug, RelWithDebInfo, Release, MinSizeRel -->
+
+  <!-- Visual Studio 2008 location -->
+  <property name="vs2008Path" value="C:\Program Files\Microsoft Visual Studio 9.0"/>
+  <property name="vc2008Path" value="${vs2008Path}\VC\bin"/>
+  <property name="msdev2008Path" value="${vs2008Path}\Common7\IDE"/>
+
+  <macrodef name="build_project">
+    <attribute name="builder" default="${buildenv}"/>
+    <attribute name="projectPath" default="${staging_path}"/>
+    <attribute name="name" default="${ant.project.name}"/>
+    <attribute name="flags" default=""/>
+    <attribute name="buildType" default="${build_type}"/>
+    <attribute name="failonerror" default="true"/>
+    <sequential>
+      <if>
+        <equals arg1="@{builder}" arg2="Visual Studio 2008"/>
+        <then>
+          <build_project_vc2008 project="@{projectPath}/ImaCor.sln" name="@{name}" flags="@{flags}" buildType="@{buildType}" failonerror="@{failonerror}"/>
+        </then>
+       <else>
+         <echo message="An unsupported builder was specified: @{builder}."/>
+       </else>
+      </if>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="build_project_vc2008">
+    <attribute name="project"/>
+    <attribute name="name"/>
+    <attribute name="flags" default=""/>
+    <attribute name="buildType" default="${build_type}"/>
+    <attribute name="failonerror" default="true"/>
+    <sequential>
+      <!-- Release build -->
+      <exec executable="${msdev2008Path}\devenv.com" failonerror="@{failonerror}">
+        <arg value="@{project}"/>
+        <arg value="/build"/>
+        <arg value="Release"/>
+        <!-- only use if you want to build a specific project in the solution
+        <arg value="@{buildType}"/>
+        <arg value="/project"/>
+        <arg value="@{name}"/>
+        -->
+      </exec>
+
+      <!-- Debug build -->
+      <exec executable="${msdev2008Path}\devenv.com" failonerror="@{failonerror}">
+        <arg value="@{project}"/>
+        <arg value="/build"/>
+        <arg value="Debug"/>
+        <!-- only use if you want to build a specific project in the solution
+        <arg value="@{buildType}"/>
+        <arg value="/project"/>
+        <arg value="@{name}"/>
+        -->
+      </exec>
+
+
+     <property name="nsisPath" value="C:\Program Files\NSIS"/>
+     <property name="install_path" value=".\Installs"/>
+     <exec executable="${nsisPath}\makensis.exe" failonerror="true">
+       <arg value="${install_path}/Zura/Setup.nsi"/>
+     </exec>
+
+    </sequential>
+  </macrodef>
+
+</project>

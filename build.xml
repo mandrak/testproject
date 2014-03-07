@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project name="ExampleBuilder" default="build" basedir=".">
+
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+  <import file="build_utils.xml"/>
+
+  <target name="build">
+     <propertyregex property="major" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\1" casesensitive="false" />
+     <propertyregex property="minor" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\2" casesensitive="false" />
+     <propertyregex property="rev" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\3" casesensitive="false" />
+     <propertyregex property="build" input="${buildVersion}" regexp="(\d+)\.(\d+)\.(\d+)\.(\d+)" select="\4" casesensitive="false" />
+
+     <echo file="build.env" append="false" message="ICMVER=${major}.${minor}.${rev}.${build}"/>  <!-- test -->
+     <echo file="build.env" append="true" message="${line.separator}ICMLANG=0x409"/>  <!-- test -->
+
+     <build_project builder="Visual Studio 2008" name="???" buildType="???"/> <!-- we don't use name and buildType here -->
+  </target>
+
+</project>

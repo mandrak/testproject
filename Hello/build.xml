@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="Hello" default="hello" basedir=".">
+
+
+ <property name="include.dir" location="C:/Program Files/Microsoft Visual Studio 9.0/VC/include"/>
+ <property name="include.dir2" location="C:/Program Files/Microsoft SDKs/Windows/v6.0A/Include"/>
+ <property name="lib.dir" location="C:/Program Files/Microsoft Visual Studio 9.0/VC/lib"/>
+ <property name="lib.dir2" location="C:/Program Files/Microsoft SDKs/Windows/v6.0A/Lib"/>
+
+ <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+ <taskdef resource="cpptasks.tasks"/>
+ <typedef resource="cpptasks.types"/>
+ <target name="init">
+  <condition property="cc" value="msvc">
+   <os family="windows"/>
+  </condition>
+ </target>
+ <target name="hello" depends="init">
+  <cc name="${cc}" outtype="executable" subsystem="console" outfile="hello">
+   <fileset dir="." includes="hello.c"/>
+
+   <sysincludepath path="${include.dir}"/>
+   <sysincludepath path="${include.dir2}"/>
+
+   <libset libs="msvcrt oldnames" dir="${lib.dir}"/>
+
+  </cc>
+ </target>
+</project>
