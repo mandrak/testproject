@@ -14,5 +14,7 @@ main()
 
 	printf("hello, world - 2.0\n");
 
+	// we should add a second print statement below...
+
 	return;
 }
