@@ -8,9 +8,11 @@
 
 main()
 {
-	int i=1;
+	int i=2;
 
 	i = i+4; // test nheron
 
 	printf("hello, world - 2.0\n");
+
+	return;
 }
