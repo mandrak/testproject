@@ -13,4 +13,6 @@ main()
 	i = i+4; // test nheron
 
 	printf("hello, world - 2.0\n");
+
+	return;
 }
