@@ -14,5 +14,9 @@ main()
 
 	printf("hello, world - 2.0\n");
 
+	// say hello a second time
+	i = i+5; 
+	printf("hello, world - 3.0\n");
+
 	return;
 }
