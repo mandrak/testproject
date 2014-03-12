@@ -21,5 +21,5 @@ main()
 
 	printf("the value of j is: %d", j);
 
-	return;
+	return 0;  // this is a changed made directly into the development branch by nic
 }
