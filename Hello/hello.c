@@ -6,7 +6,7 @@
 
 // mandr: my comment is better!
 
-main()
+int main()
 {
 	int i=2;
 	int j=0;
@@ -21,5 +21,5 @@ main()
 
 	printf("the value of j is: %d", j);
 
-	return 0;  // this is a changed made directly into the development branch by nic
+	return 1;
 }
